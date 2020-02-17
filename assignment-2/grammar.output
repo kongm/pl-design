@@ -1,0 +1,368 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: stmt_list ';'
+
+    2 stmt_list: stmt_list ';' stmt
+    3          | stmt
+
+    4 stmt: assignment
+    5     | read
+    6     | write
+
+    7 assignment: T_ID T_ASSIGN expr
+
+    8 expr: expr '+' term
+    9     | term
+
+   10 term: term '*' fact
+   11     | fact
+
+   12 fact: T_ID
+   13     | T_NUM
+   14     | '(' expr ')'
+
+   15 read: T_READ varlist
+
+   16 write: T_WRITE varlist
+
+   17 varlist: varlist ',' varid
+   18        | varid
+
+   19 varid: T_ID
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 14
+')' (41) 14
+'*' (42) 10
+'+' (43) 8
+',' (44) 17
+';' (59) 1 2
+error (256)
+T_ID (258) 7 12 19
+T_NUM (259) 13
+T_READ (260) 15
+T_WRITE (261) 16
+T_ASSIGN (262) 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (14)
+    on left: 0
+program (15)
+    on left: 1, on right: 0
+stmt_list (16)
+    on left: 2 3, on right: 1 2
+stmt (17)
+    on left: 4 5 6, on right: 2 3
+assignment (18)
+    on left: 7, on right: 4
+expr (19)
+    on left: 8 9, on right: 7 8 14
+term (20)
+    on left: 10 11, on right: 8 9 10
+fact (21)
+    on left: 12 13 14, on right: 10 11
+read (22)
+    on left: 15, on right: 5
+write (23)
+    on left: 16, on right: 6
+varlist (24)
+    on left: 17 18, on right: 15 16 17
+varid (25)
+    on left: 19, on right: 17 18
+
+
+State 0
+
+    0 $accept: . program $end
+
+    T_ID     shift, and go to state 1
+    T_READ   shift, and go to state 2
+    T_WRITE  shift, and go to state 3
+
+    program     go to state 4
+    stmt_list   go to state 5
+    stmt        go to state 6
+    assignment  go to state 7
+    read        go to state 8
+    write       go to state 9
+
+
+State 1
+
+    7 assignment: T_ID . T_ASSIGN expr
+
+    T_ASSIGN  shift, and go to state 10
+
+
+State 2
+
+   15 read: T_READ . varlist
+
+    T_ID  shift, and go to state 11
+
+    varlist  go to state 12
+    varid    go to state 13
+
+
+State 3
+
+   16 write: T_WRITE . varlist
+
+    T_ID  shift, and go to state 11
+
+    varlist  go to state 14
+    varid    go to state 13
+
+
+State 4
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 15
+
+
+State 5
+
+    1 program: stmt_list . ';'
+    2 stmt_list: stmt_list . ';' stmt
+
+    ';'  shift, and go to state 16
+
+
+State 6
+
+    3 stmt_list: stmt .
+
+    $default  reduce using rule 3 (stmt_list)
+
+
+State 7
+
+    4 stmt: assignment .
+
+    $default  reduce using rule 4 (stmt)
+
+
+State 8
+
+    5 stmt: read .
+
+    $default  reduce using rule 5 (stmt)
+
+
+State 9
+
+    6 stmt: write .
+
+    $default  reduce using rule 6 (stmt)
+
+
+State 10
+
+    7 assignment: T_ID T_ASSIGN . expr
+
+    T_ID   shift, and go to state 17
+    T_NUM  shift, and go to state 18
+    '('    shift, and go to state 19
+
+    expr  go to state 20
+    term  go to state 21
+    fact  go to state 22
+
+
+State 11
+
+   19 varid: T_ID .
+
+    $default  reduce using rule 19 (varid)
+
+
+State 12
+
+   15 read: T_READ varlist .
+   17 varlist: varlist . ',' varid
+
+    ','  shift, and go to state 23
+
+    $default  reduce using rule 15 (read)
+
+
+State 13
+
+   18 varlist: varid .
+
+    $default  reduce using rule 18 (varlist)
+
+
+State 14
+
+   16 write: T_WRITE varlist .
+   17 varlist: varlist . ',' varid
+
+    ','  shift, and go to state 23
+
+    $default  reduce using rule 16 (write)
+
+
+State 15
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 16
+
+    1 program: stmt_list ';' .
+    2 stmt_list: stmt_list ';' . stmt
+
+    T_ID     shift, and go to state 1
+    T_READ   shift, and go to state 2
+    T_WRITE  shift, and go to state 3
+
+    $default  reduce using rule 1 (program)
+
+    stmt        go to state 24
+    assignment  go to state 7
+    read        go to state 8
+    write       go to state 9
+
+
+State 17
+
+   12 fact: T_ID .
+
+    $default  reduce using rule 12 (fact)
+
+
+State 18
+
+   13 fact: T_NUM .
+
+    $default  reduce using rule 13 (fact)
+
+
+State 19
+
+   14 fact: '(' . expr ')'
+
+    T_ID   shift, and go to state 17
+    T_NUM  shift, and go to state 18
+    '('    shift, and go to state 19
+
+    expr  go to state 25
+    term  go to state 21
+    fact  go to state 22
+
+
+State 20
+
+    7 assignment: T_ID T_ASSIGN expr .
+    8 expr: expr . '+' term
+
+    '+'  shift, and go to state 26
+
+    $default  reduce using rule 7 (assignment)
+
+
+State 21
+
+    9 expr: term .
+   10 term: term . '*' fact
+
+    '*'  shift, and go to state 27
+
+    $default  reduce using rule 9 (expr)
+
+
+State 22
+
+   11 term: fact .
+
+    $default  reduce using rule 11 (term)
+
+
+State 23
+
+   17 varlist: varlist ',' . varid
+
+    T_ID  shift, and go to state 11
+
+    varid  go to state 28
+
+
+State 24
+
+    2 stmt_list: stmt_list ';' stmt .
+
+    $default  reduce using rule 2 (stmt_list)
+
+
+State 25
+
+    8 expr: expr . '+' term
+   14 fact: '(' expr . ')'
+
+    '+'  shift, and go to state 26
+    ')'  shift, and go to state 29
+
+
+State 26
+
+    8 expr: expr '+' . term
+
+    T_ID   shift, and go to state 17
+    T_NUM  shift, and go to state 18
+    '('    shift, and go to state 19
+
+    term  go to state 30
+    fact  go to state 22
+
+
+State 27
+
+   10 term: term '*' . fact
+
+    T_ID   shift, and go to state 17
+    T_NUM  shift, and go to state 18
+    '('    shift, and go to state 19
+
+    fact  go to state 31
+
+
+State 28
+
+   17 varlist: varlist ',' varid .
+
+    $default  reduce using rule 17 (varlist)
+
+
+State 29
+
+   14 fact: '(' expr ')' .
+
+    $default  reduce using rule 14 (fact)
+
+
+State 30
+
+    8 expr: expr '+' term .
+   10 term: term . '*' fact
+
+    '*'  shift, and go to state 27
+
+    $default  reduce using rule 8 (expr)
+
+
+State 31
+
+   10 term: term '*' fact .
+
+    $default  reduce using rule 10 (term)
