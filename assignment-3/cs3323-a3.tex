@@ -1,0 +1,98 @@
+\documentclass[letter,10pt]{article}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+%\usepackage{url}
+\usepackage{hyperref}
+
+\title{CS 3323 - Principles of Programming Languages\\ Assignment 2}
+\date{}
+
+
+\begin{document}
+\vspace{-1in}
+\maketitle
+
+The objective of this programming assignment is to build a fully functional parser. Instructions are provided below.
+
+First, download the files 
+grammar.y, scanner.yy, inputs.tar.gz (decompresses to directory {\bf inputs}), Makefile and driver.c from the assignment directory space. Then, perform the necessary modifications
+to the grammar's file to accept/reject the example programs provided. You should only work on the grammar file.
+
+The assignment is due on March 2nd, 2020, 11:59pm. Files must be uploaded by then. Late policy deduction applies.
+
+\begin{enumerate}
+
+\item (0.5pt)
+Complete the production corresponding to the {\bf read} non-terminal. It should produce a comma-separated list of
+variable references ({\bf varref}). The list of variable references should be of at least length one.
+
+\item (0.5pt)
+Complete the production corresponding to the {\bf expr\_list} non-terminal. It should produce a comma-separated list of
+arithmetic expressions ({\bf a\_expr}). The list of arithmetic expressions should be of at least length one.
+
+\item (0.5pt)
+Define three productions for the non-terminal {\bf l\_fact}: 
+  
+  \begin{itemize}
+  \item a left-recursive rule producing comparisons of arithmetic expressions ({\bf a\_expr} non-terminal). It should use the {\bf oprel} non-terminal already defined.
+  \item a single arithmetic expression.
+  \item A logical expression in parenthesis ({\bf l\_expr} non-terminal).
+  \end{itemize}
+
+\item (1pt)
+Define five productions for the non-terminal {\bf a\_fact} based on the following description:
+
+  \begin{itemize}
+  \item An {\bf a\_fact} can be a variable reference (non-terminal {\bf varref}).
+  \item The token T\_NUM.
+  \item A literal string (token T\_LITERAL\_STR).
+  \item The non-terminal {\bf a\_fact} preceded by the T\_SUB token (Note: Do not use '-').
+  \item A parenthesized arithmetic expression.
+  \end{itemize}
+
+\item (0.5pt)
+Define two productions for the {\bf varref} non-terminal that match the below description:
+
+  \begin{itemize}
+  \item A variable reference can be the T\_ID token.
+  \item A variable reference can be a left-recursive list of arithmetic expressions delimited by '[' and ']'. The recursion terminates with the T\_ID token (See above description).
+  \end{itemize}
+
+\item (2pt)
+Complete the control-flow constructs. Observe that a statement list surrounded by T\_BEGIN and T\_END is also a statement. The non-terminal {\bf l\_expr} must be
+used for representing logical expressions. Use test cases for*.smp, if*.smp, repeat*.smp and for*.smp.
+
+  \begin{itemize}
+  \item {\bf foreach}: Complete the partially-defined production. See input cases for[1-4]\_pass.smp.
+  \item {\bf repeat-until}: 
+        Define it  as a list of statements. Use the non-terminal {\bf stmt\_list}). The list must be  delimited by the tokens T\_REPEAT and T\_UNTIL. 
+        The controlling condition should use the {\bf l\_expr} non-terminal. Do not add parentheses.
+  \item {\bf while}:
+        The T\_WHILE token followed by a logical expression and any statement.
+  \item {\bf if-then/if-then-else}:
+        The T\_IF token followed by a logical expression (non-terminal {\bf l\_expr}). The true branch should be a statement preceded by the T\_THEN token,
+        whereas the T\_ELSE branch can either be empty or start with the T\_ELSE token followed by a statement.
+  \end{itemize}
+
+\end{enumerate}
+
+For convenience, a Makefile is provided, but you are not required to use it.
+
+To rebuild the binary ({\bf simple.exe}) run: make all
+
+To test a single input file, run: ./simple.exe $<$ inputfile.smp
+
+Several online resources can be found in the web, for instance:
+\begin{itemize}
+\item
+\url{https://www.gnu.org/software/bison/manual}
+\item
+\url{https://www.lysator.liu.se/c/ANSI-C-grammar-y.html#multiplicative-expression}
+\end{itemize}
+
+More resources can be found by searching for the key terms: yacc/bison parser generator.
+
+Do not change the driver file, nor the scanner.yy files. Do not print anything to the output.
+
+Every student should {\bf upload a single file named: ABCDEFGHI.y}, where ABCDEFGHI is the 9-digit code identifying the student (not the 4+4).
+
+\end{document}
