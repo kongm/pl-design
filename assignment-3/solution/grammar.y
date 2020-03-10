@@ -110,6 +110,7 @@ a_expr : a_expr T_ADD a_term
           cout << "Incompatible datatypes\n";
           exit (1);
         }
+        // TASK: Abort if the datatype of a_expr and a_term differ.
         symbol_t * res;
         if ($1->datatype == DTYPE_INT)
         {
@@ -120,6 +121,8 @@ a_expr : a_expr T_ADD a_term
         {
           // TASK: Modify this semantic action to support both DTYPE_INT and DTYPE_FLOAT.
           // For DTYPE_FLOAT you should generate an OP_FADD instruction.
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FADD, res->addr, $1->addr, $3->addr);
         }
         $$ = res;
         #ifdef _SMP_DEBUG_
@@ -128,17 +131,20 @@ a_expr : a_expr T_ADD a_term
       }
     | a_expr T_SUB a_term
       {
-        if ($1->datatype != $3->datatype)
-        {
-          cout << "Incompatible datatypes\n";
-          exit (1);
-        }
+        // TASK: Abort if the datatype of a_expr and a_term differ.
         // TASK: Complete support for OP_SUB and OP_FSUB. See OP_ADD and OP_FADD code above.
         symbol_t * res;
         if ($1->datatype == DTYPE_INT)
         {
           res = make_temp (symtab, $1->datatype);
           itab_instruction_add (itab, OP_SUB, res->addr, $1->addr, $3->addr);
+        }
+        if ($1->datatype == DTYPE_FLOAT)
+        {
+          // TASK: Modify this semantic action to support both DTYPE_INT and DTYPE_FLOAT.
+          // For DTYPE_FLOAT you should generate an OP_FSUB instruction.
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FSUB, res->addr, $1->addr, $3->addr);
         }
         $$ = res;
         #ifdef _SMP_DEBUG_
@@ -156,33 +162,39 @@ a_expr : a_expr T_ADD a_term
 
 a_term : a_term T_MUL a_fact
       {
-        if ($1->datatype != $3->datatype)
-        {
-          cout << "Incompatible datatypes\n";
-          exit (1);
-        }
-        // TASK: Complete support for OP_MUL and OP_FMUL. See OP_ADD and OP_FADD code above.
+        // TASK: Abort if the datatype of a_expr and a_term differ.
+        // TASK: Complete support for OP_SUB and OP_FSUB. See OP_ADD and OP_FADD code above.
         symbol_t * res;
         if ($1->datatype == DTYPE_INT)
         {
           res = make_temp (symtab, $1->datatype);
           itab_instruction_add (itab, OP_MUL, res->addr, $1->addr, $3->addr);
         }
+        if ($1->datatype == DTYPE_FLOAT)
+        {
+          // TASK: Modify this semantic action to support both DTYPE_INT and DTYPE_FLOAT.
+          // For DTYPE_FLOAT you should generate an OP_FMUL instruction.
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FMUL, res->addr, $1->addr, $3->addr);
+        }
         $$ = res;
       }
     | a_term T_DIV a_fact
       {
-        if ($1->datatype != $3->datatype)
-        {
-          cout << "Incompatible datatypes\n";
-          exit (1);
-        }
-        // TASK: Complete support for OP_DIV and OP_FDIV. See OP_ADD and OP_FADD code above.
+        // TASK: Abort if the datatype of a_expr and a_term differ.
+        // TASK: Complete support for OP_SUB and OP_FSUB. See OP_ADD and OP_FADD code above.
         symbol_t * res;
         if ($1->datatype == DTYPE_INT)
         {
           res = make_temp (symtab, $1->datatype);
           itab_instruction_add (itab, OP_DIV, res->addr, $1->addr, $3->addr);
+        }
+        if ($1->datatype == DTYPE_FLOAT)
+        {
+          // TASK: Modify this semantic action to support both DTYPE_INT and DTYPE_FLOAT.
+          // For DTYPE_FLOAT you should generate an OP_FDIV instruction.
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FDIV, res->addr, $1->addr, $3->addr);
         }
         $$ = res;
         
@@ -215,6 +227,7 @@ a_fact : varref
       }
     | T_FLOAT 
       { 
+        // TASK: Complete implementation in a fashion similar to the rule a_fact -> T_INTEGER. 
         symbol_t * res;
         res = make_temp (symtab, DTYPE_FLOAT);
         *(float*)(static_mem+stptr) = $1;
