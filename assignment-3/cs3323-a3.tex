@@ -1,0 +1,92 @@
+\documentclass[letter,10pt]{article}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+%\usepackage{url}
+\usepackage{hyperref}
+
+\title{CS 3323 - Principles of Programming Languages\\ Assignment 3}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+The objective of this programming assignment is to build a functional compiler with basic I/O support and arithmetic computations. Instructions are provided below.
+
+First, download the files 
+grammar.y, scanner.yy, icode.cc, icode.hh, symtab.cc, symtab.hh, inputs-int.tar.gz, inputs-float.tar.gz, Makefile, run-all.sh and driver.cc from the assignment directory space. 
+Then, perform the necessary modifications
+to grammar.y and to icode.cc to add support for floating point operations. You should only work on the grammar file (grammar.y)
+and in icode.cc.
+
+The assignment is due on April 1st, 2020, 11:59pm. Both modified files (grammar.y and icode.cc) must be uploaded by then. Late policy deduction applies.
+
+Perform the following modifications to the compiler:
+
+\begin{enumerate}
+
+\item (2.0pt)
+In grammar.y, complete the semantic actions corresponding to the floating point arithmetic binary operations 
+of the non-terminals {\textit a\_expr} and {\textit a\_term}: (OP\_FADD, OP\_FSUB, OP\_FMUL and OP\_FDIV).
+You should query the {\bf datatype} field of a temporary symbol to determine the correct operation to be generated.
+
+\item (1.0pt)
+In icode.cc, function {\bf run}, implement the run-time actions for the floating point arithmetic binary operations
+OP\_FADD, OP\_FSUB, OP\_FMUL and OP\_FDIV. These four operations are specific to the datatype DTYPE\_FLOAT.
+
+\item (0.5pt)
+In icode.cc, function {\bf run}, complete the run-time action of the floating point arithmetic unary operation
+OP\_UMIN for the DTYPE\_FLOAT datatype ({\bf float}). The current implementation only supports DTYPE\_INT (a C/C++ int). 
+
+%\item (1.0pt)
+%In grammar.y, complete the semantic actions corresponding to the binary arithmetic operations 
+%of the non-terminals {\textit a\_expr} and {\textit a\_term} by
+%validating that the {\bf datatype} fields of both the left and right binary operands are identical.
+%If that is not the case, invoke the C function {\bf exit(1);} (declared in stdlib.h).
+
+\item (0.5pt)
+In icode.cc, function {\bf run}, complete the run-time action of the operation OP\_LOAD\_CST for the datatype DTYPE\_FLOAT.
+It should be very similar to the DTYPE\_INT case.
+
+\item (0.5pt)
+In icode.cc, function {\bf run}, complete the run-time action of the operation OP\_LOAD for the datatype DTYPE\_FLOAT.
+It should be very similar to the DTYPE\_INT case.
+
+\item (0.5pt)
+In icode.cc, function {\bf run}, complete the run-time action of the operation OP\_STORE for the datatype DTYPE\_FLOAT.
+It should be very similar to the DTYPE\_INT case.
+
+
+\end{enumerate}
+
+A number of test cases are provided, both for the {\bf int} (directory {\bf inputs-int}) and {\bf float} (directory {\bf inputs-float}) 
+language datatypes.
+The current implementation of the provided compiler works with all the test cases of the directory {\bf inputs-int}.
+You can test your progress with the files in {\bf inputs-float}. Note that the output should be practically identical to
+the corresponding {\bf int} test case.
+
+For convenience, a Makefile is also provided, but you are not required to use it.
+The Makefile will build two binaries, {\bf simple.exe} and {\bf simple-debug.exe}. The latter will output
+the symbol table, instruction table and a number of debug prints. Grading will be performed with
+{\bf simple.exe} . If you need to add debug printing information, always enclose it between "\#ifdef \_SMP\_DEBUG\_" and "\#endif".
+
+To test a single input file, run: ./simple.exe $<$ inputfile.smp
+
+You can also test {\bf all} the test cases of a single directory with the script {\bf run-all.sh}.
+It expects the directory name to test.
+
+Several online resources can be found in the web, for instance:
+\begin{itemize}
+\item
+\url{https://www.gnu.org/software/bison/manual}
+\item
+\url{https://www.lysator.liu.se/c/ANSI-C-grammar-y.html#multiplicative-expression}
+\end{itemize}
+
+More resources can be found by searching for the key terms: yacc/bison parser generator.
+
+Do not change any other file. Do not print anything to the output outside of the conditional compilation directives.
+
+Every student should {\bf upload the two modified files in a directory named: ABCDEFGHI}, where ABCDEFGHI is the 9-digit code identifying the student (not the 4+4).
+You should only upload the files grammar.y and icode.cc.
+
+\end{document}
