@@ -1,0 +1,8 @@
+int a;
+int b;
+a := 1;
+b := 2;
+?~ a := a > 3 :: b++;
+write a;
+write b;
+
