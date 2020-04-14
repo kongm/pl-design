@@ -3,91 +3,73 @@
 %\usepackage{url}
 \usepackage{hyperref}
 
-\title{CS 3323 - Principles of Programming Languages\\ Assignment 4}
+\title{CS 3323 - Principles of Programming Languages\\ Assignment 5}
 \date{}
 
 
 \begin{document}
 \maketitle
 
-The objective of this programming assignment is to add basic control-flow functionality 
+{\bf This assignment is optional, worth 3 points, and will be directly added
+to your midterm/final exams}. Neither is it is not required to work in groups.
+
+The objective of this programming assignment is to add two types of predicated 
+assignment instructions, a special case of control-flow,
 to a simple compiler being developed in this course. Instructions are provided below.
 
 First, download the files 
 grammar.y, scanner.yy, icode.cc, icode.hh, symtab.cc, symtab.hh, inputs-outputs.tar.gz, Makefile, run-all.sh and driver.cc 
 from the assignment directory space. 
-Then, perform the necessary modifications
-to grammar.y to add support for the repeat-until, while-do and if-then-else programming constructs. 
+The code base provided is almost identical to that of the fourth programming assignment, with minor
+modifications to grammar.y, scanner.yy and the icode files. However, {\bf this code base is not compatible
+with that of assignment 4}.
+
+In the same spirit of the fourth assignment, perform the necessary modifications
+to grammar.y to add support for two new programming constructs: a basic predicated assignment and predicated assignment with short-circuit.
 You should only work on the grammar file (grammar.y).
 
-The assignment is due on April 29th, 2020, 11:59pm. Late policy deduction applies.
+The assignment is due on April 29th, 2020, 11:59pm. {\bf No late assignments will be accepted}.
 
 Perform the following modifications to the compiler:
 
 \begin{enumerate}
 
-\item (0.5pt)
-This version of the compiler introduces 5 new intermediate code operations: OP\_LT, OP\_GT,
-OP\_JMP, OP\_JNZ and OP\_JZ. See the file icode.cc, lines 296--354.
-Read their implementation to be sure you understand their semantics.
-The corresponding constant definitions and instruction codes have been added to icode.hh,
-and can be used as new intermediate code operations.
-
-Also observe the new rule l\_expr in grammar.y, which allows to compare two integer
-expressions and store the result of this comparison in an intermediate variable.
-The action stores a pointer to the intermediate variable generated for any other
-rule to use it (e.g. repeat-until).
-
-A few small modifications have been performed to the loop executing the intermediate
-operations, and they mainly pertain to the execution of conditional and unconditional
-jumps: changing the program counter (now explicitly {\bf pc}) by some instruction
-position given by an argument of the intermediate code (always the 3rd argument).
 
 \item (1.5pt)
-In grammar.y, complete the semantic actions  for the repeat-until construct (see construct\_repeat rule).
-The construct {\bf jumps backwards} to the first instruction of the loop's body whenever the condition is false.
-This means that you must use the new intermediate code operation OP\_JZ (jump if zero).
-As the jump target is to an operation preceding the same OP\_JZ, you will need to store the target
-address in the parser's stack. This can be done by assigning the next instruction to be generated
-(see macro INSTRUCTION\_NEXT) to the variable {\bf @\$.begin.line}.
-To retrieve the value stored in some semantic action, use {\bf @X.begin.line}, where X is the position
-of the semantic action as a symbol in the right-hand-side of grammar's rule. For instance,
-to retrieve an integer value stored in the stack by a semantic action occupying the second position
-as a symbol, use: {\bf @2.begin.line}. This form of accessing the stack essentially replaces the simpler
-older form of {\bf \$2}.
+The basic predicated assignment (Lines 230--236) can be implemented with a
+single semantic action.  It will consist of a single jump forward with an
+address to be defined later, the assignment to be predicated, and the
+definition of the target address. Note that, unlike the tasks of the fourth
+assignment, the target of the jump will be determined within the same semantic
+action.  Placeholders are provided in the semantic action.  You can use the
+same macros provided in the previous assignment (INSTRUCTION\_LAST and
+INSTRUCTION\_NEXT) to complete this task.  You have to decide which to use. See
+the test cases (pred-assign-false.smp, pred-assign-true.smp and
+pred-assign-increment-true.smp) and their corresponding outputs to further
+understand the semantics of the new construct.
 
 \item (1.5pt)
-In grammar.y, complete the semantic actions  for the while-do construct (see construct\_while rule).
-Observe that the rule of this construct has 3 semantic actions. The first one precedes the condition
-evaluation. The second comes after the condition, but before the loop's body. The last semantic action
-takes places after recognizing and generating the code for the loop's body.
-The while-do construct potentially {\bf jumps forward}, right after evaluating the loop's condition, 
-to the first instruction following the loop's body whenever the condition is false.
-This means that you must use the new intermediate code operation OP\_JZ (jump if zero).
-Since the jump target is to an operation that has not been generated at the moment that OP\_JZ is being created, 
-you will need to store the instruction entry associated to the jump, and complete it later in the third 
-semantic action. The entry number to completed can be stored in the 
-parser's stack. This can be done by assigning the last generated instruction number
-(see macro INSTRUCTION\_LAST) to the variable {\bf @\$.begin.line}.
-
-\item (1.5pt)
-In grammar.y, complete the semantic actions to implement the if-then and if-then-else constructs.
-See rule construct\_if, which will use 3 semantic actions. The first one must generate
-a jump to the false-branch of the construct when the condition is false. Also store
-the instruction entry in the parser's stack as you will need it to complete the destination of the
-jump. The second action performs two tasks: i) generate an unconditional jump to potentially
-skip the execution of the else-branch, and ii) complete the jump's destination generated
-in the first semantic action. The third semantic action sets the target jump address for the
-unconditional jump created in the second semantic action. Be carefully to distinguish
-between {\bf the last generated instruction entry} (see macro INSTRUCTION\_LAST) and
-{\bf the next instruction to be generated} (see macro INSTRUCTION\_NEXT).
+The predicated assignment with short-circuit (Lines 238--249) can be
+implemented with two semantic actions.  The spirit of this construct is very
+similar to an if-then (without the else branch). However, in addition to
+skipping the execution of the assignment itself, it will also skip the
+execution of the expression to be assigned.  
+Placeholders are provided in both semantic actions.  
+It will consist of a jump
+forward with an address to be defined later, the assignment to be predicated,
+and the definition of the target address (See instructions of the fourth
+assignment to recall how to store, pass and retrieve values stored in the
+parser stack).  You can use the same macros provided (INSTRUCTION\_LAST and
+INSTRUCTION\_NEXT) to complete this task.  See the test cases
+(pred-assign-sc-false.smp and  pred-assign-sc-true.smp) and their output
+files to further understand the behavior of this construct.
 
 
 \end{enumerate}
 
 A number of test cases are provided (see inputs-outputs.tar.gz). 
-If you write your own test cases, limit them to using only the {\bf int}
-data type of our language. Also note that the current version of this compiler does not support $<=$, $>=$, $==$ nor $!=$ (as in C syntax).
+Also note that the current version of this compiler does not support $<=$, $>=$, $==$ nor $!=$ (as in C syntax),
+nor is compatible with that of the fourth assignment.
 
 For convenience, a Makefile is also provided, but you are not required to use it.
 The Makefile will build two binaries, {\bf simple.exe} and {\bf simple-debug.exe}. The latter will output
