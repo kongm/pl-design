@@ -4,7 +4,7 @@ CFLAGS = -O3 -I. -fpermissive -std=c++11 -Wno-unused-result
 SCANNER = scanner
 GRAMMAR = grammar
 FLEX = flex
-BISON = bison
+BISON = /usr/local/Cellar/bison/3.5.4/bin/bison
 SRCS = driver.cc lex.yy.c $(PROG).cc icode.cc symtab.cc
 BIN = $(PROG).exe
 BINDEB = $(PROG)-debug.exe
