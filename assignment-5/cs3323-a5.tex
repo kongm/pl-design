@@ -11,7 +11,7 @@
 \maketitle
 
 {\bf This assignment is optional, worth 3 points, and will be directly added
-to your midterm/final exams}. Neither is it is not required to work in groups.
+to your midterm/final exams}. It is not required to work in groups.
 
 The objective of this programming assignment is to add two types of predicated 
 assignment instructions, a special case of control-flow,
@@ -36,7 +36,7 @@ Perform the following modifications to the compiler:
 
 
 \item (1.5pt)
-The basic predicated assignment (Lines 230--236) can be implemented with a
+The basic predicated assignment (grammar.y: Lines 230--236) can be implemented with a
 single semantic action.  It will consist of a single jump forward with an
 address to be defined later, the assignment to be predicated, and the
 definition of the target address. Note that, unlike the tasks of the fourth
@@ -49,7 +49,7 @@ pred-assign-increment-true.smp) and their corresponding outputs to further
 understand the semantics of the new construct.
 
 \item (1.5pt)
-The predicated assignment with short-circuit (Lines 238--249) can be
+The predicated assignment with short-circuit (grammar.y: Lines 238--249) can be
 implemented with two semantic actions.  The spirit of this construct is very
 similar to an if-then (without the else branch). However, in addition to
 skipping the execution of the assignment itself, it will also skip the
