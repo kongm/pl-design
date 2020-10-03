@@ -1,0 +1,20 @@
+
+Suggested topics to study and review:
+- Overall compilation flow
+- Understand the purpose of each stage
+- Go through the example
+- Review recordings when I mention the automatic generation of temporary variables.
+- Role of symbol table.
+- Difference between compiler and interpreter.
+- Lexical analysis: 
+  * job, different roles, see manual scanner
+  * regular expressions: test/practice with provided scripts
+- Differences among different types/classes of programming languages (classification)
+
+
+What I will not ask:
+- History of PLs
+- Classification of PLs.
+- Motivation of PLs
+
+Slides, books, notes and tools (aka testing a regular expression with GREP or so) allowed during quiz.

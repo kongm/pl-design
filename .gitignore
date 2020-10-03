@@ -6,3 +6,9 @@ a.out
 grammar.output
 simple.output
 cs*-a?.out
+lex.yy.c
+stack.hh
+location.hh
+position.hh
+simple.hh
+simple.cc
