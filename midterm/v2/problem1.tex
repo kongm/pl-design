@@ -1,0 +1,98 @@
+
+\vspace{1cm}
+
+\noindent
+{\bf Problem 1 (5pts)}
+\vspace{1cm}
+
+
+\noindent
+(1pt) Assuming right associativity for the MINUS binary operator (-), left-associativity for exponentiation (**),
+and ** having a higher precedence than -,
+show the evaluation steps and the final result of evaluating the expression:  9 - 1 - 2 ** 6 ** 0.5
+
+\vspace{1in}
+
+\noindent
+(1pt) Consider the regular expression: $(a|b) * c+ (bc | dc)*$ \\
+\\
+  Write two strings that would be rejected and two string that would be accepted by the above regular expression.
+  All strings must be at least 4 symbols long.
+
+
+\vspace{1in}
+
+\noindent
+(0.5pt)  What's the total number of tokens that a C scanner would produce for the following code snippet ?
+
+\begin{lstlisting}
+while ( a + b < 10 ) b = b + 2 ;
+\end{lstlisting}
+
+\vspace{1in}
+
+\pagebreak
+\noindent
+(1pt) For the below statements, mark either True or False:
+
+\vspace{1cm}
+
+\begin{tabular}{|p{13cm}|p{2cm}|}
+\hline
+{\bf Statement} & {\bf True/False} \\
+\hline
+Left/right operator associativity is necessary for the + operator &  \\
+\hline
+Operator associativity deals with the order of evaluation of a sequence of operations of the exact same type	 &  \\
+\hline
+LL parsing works in a bottom-up fashion  &   \\
+\hline
+LL parsers are perfectly suitable to handle left-recursion &  \\
+\hline
+\end{tabular}
+
+\vspace{1cm}
+
+\noindent
+(0.5pt) Write a regular expression that would accept the following 4 strings:
+
+\begin{itemize}
+\item
+a b
+\item
+a a b b c c
+\item
+a b b b c c c c
+\item
+b b b b b b c c c c c
+\end{itemize}
+
+\vspace{1in}
+
+
+\noindent
+(1.0pt) 
+Write a small grammar that permits to produce lists of function arguments for a C-like language.  
+The tokens to use in this grammar are: ID, INT, FLOAT, LEFTPAR '(', RIGHTPAR ')' and COMMA ' , '. $\epsilon$ is the empty string.
+
+\noindent
+You can use the pipe character '$|$' to separate multiple right-hand-sides for the same non-terminal.
+The grammar can have either left-recursion or right-recursion, but not both types.
+
+Below are 3 examples, one per line, of the strings that could  be accepted:
+
+\begin{itemize}
+\item
+( int a, int b )
+
+\item
+( int a, float b, int c)
+
+\item
+( int a )
+
+\item
+( )
+\end{itemize}
+
+\vspace{2in}

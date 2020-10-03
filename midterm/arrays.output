@@ -1,0 +1,136 @@
+Grammar
+
+    0 $accept: varref $end
+
+    1 varref: T_ID dimlist
+
+    2 dimlist: dimlist '[' fact ']'
+    3        | %empty
+
+    4 fact: varref
+    5     | T_NUM
+    6     | '-' fact
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'-' (45) 6
+'[' (91) 2
+']' (93) 2
+error (256)
+T_ID (258) 1
+T_NUM (259) 5
+
+
+Nonterminals, with rules where they appear
+
+$accept (8)
+    on left: 0
+varref (9)
+    on left: 1, on right: 0 4
+dimlist (10)
+    on left: 2 3, on right: 1 2
+fact (11)
+    on left: 4 5 6, on right: 2 6
+
+
+State 0
+
+    0 $accept: . varref $end
+
+    T_ID  shift, and go to state 1
+
+    varref  go to state 2
+
+
+State 1
+
+    1 varref: T_ID . dimlist
+
+    $default  reduce using rule 3 (dimlist)
+
+    dimlist  go to state 3
+
+
+State 2
+
+    0 $accept: varref . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 varref: T_ID dimlist .
+    2 dimlist: dimlist . '[' fact ']'
+
+    '['  shift, and go to state 5
+
+    $default  reduce using rule 1 (varref)
+
+
+State 4
+
+    0 $accept: varref $end .
+
+    $default  accept
+
+
+State 5
+
+    2 dimlist: dimlist '[' . fact ']'
+
+    T_ID   shift, and go to state 1
+    T_NUM  shift, and go to state 6
+    '-'    shift, and go to state 7
+
+    varref  go to state 8
+    fact    go to state 9
+
+
+State 6
+
+    5 fact: T_NUM .
+
+    $default  reduce using rule 5 (fact)
+
+
+State 7
+
+    6 fact: '-' . fact
+
+    T_ID   shift, and go to state 1
+    T_NUM  shift, and go to state 6
+    '-'    shift, and go to state 7
+
+    varref  go to state 8
+    fact    go to state 10
+
+
+State 8
+
+    4 fact: varref .
+
+    $default  reduce using rule 4 (fact)
+
+
+State 9
+
+    2 dimlist: dimlist '[' fact . ']'
+
+    ']'  shift, and go to state 11
+
+
+State 10
+
+    6 fact: '-' fact .
+
+    $default  reduce using rule 6 (fact)
+
+
+State 11
+
+    2 dimlist: dimlist '[' fact ']' .
+
+    $default  reduce using rule 2 (dimlist)

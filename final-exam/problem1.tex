@@ -1,0 +1,117 @@
+
+\paragraph{Problem 1: Declaring 1-dimensional arrays (10 points)}
+The following is an excerpt from the grammar.y file (both from the 3rd and 4th assignment),
+which permits to declare scalar variables (non-arrays) with data types:
+
+\begin{lstlisting}
+declaration: datatype T_ID 
+  { 
+    assert (symtab);
+    assert (itab);
+    symbol_t * sym = symbol_create (symtab, $2, $1); 
+    assert (sym);
+    symbol_add (symtab, sym);
+  }
+    ;
+\end{lstlisting}
+
+First, recall that function \texttt{symbol\_create} adds a new symbol
+to the symbol table. The datatype used to create the new symbol is obtained from the {\texttt datatype} non-terminal
+in the right-hand side of the rule, while the name of the symbol is the string
+recognized together with the \texttt{T\_ID} token.
+
+Suppose now that the declaration of variables is modified by adding a non-terminal \texttt{array\_size} 
+(see below). You can observe that it expects a number such as 10 or 5.  If, however, that number
+is omitted, then the semantic action is to return 1 via the parser's stack (assignment \$\$ = 1). 
+Obviously, the datatype of
+the non-terminal \texttt{array\_size} will be \texttt{int}, similar to lines 58, 66--67 in grammar.y.
+(NOTE: T\_INTEGER is the token returned by the scanner when an integer number is recognized,
+whereas T\_DT\_INT is the token associated to the keyword \texttt{int} in our language.)
+
+\begin{lstlisting}
+declaration: datatype array_size T_ID 
+  { 
+
+  }
+  ;
+
+array_size : T_INTEGER { $$ = $1; }
+          |   { $$ = 1; }
+          ;
+        
+\end{lstlisting}
+
+
+{\bf Problem 1A (2 points):}
+\\
+Refer to the definition of \texttt{struct simple\_symbol} in symtab.hh.
+The current data structure for declaring variables only has 3 fields: name, addr and datatype.
+This is not sufficient for declaring 1-dimensional arrays. In 5 or fewer lines, describe why
+is the current data structure not adequate for supporting 1-dimensional arrays.
+
+
+\begin{tcolorbox}[height=3in]
+
+\end{tcolorbox}
+
+\pagebreak
+{\bf Problem 1B (2 points):}
+\\
+Propose one or more modifications
+to the {\texttt simple\_symbol} data structure to be able to declare 1-dimensional arrays. 
+You can assume that you
+only have to support arrays of integers. 
+
+\begin{tcolorbox}[height=3in]
+
+\end{tcolorbox}
+
+
+
+{\bf Problem 1C (2 points):}
+\\
+Describe now the modifications you would have to perform on \texttt{symbol\_create} in order to use
+it in the modified grammar. You don't need to write code, but if it helps to explain yourself,
+you can re-write part or all of \texttt{symbol\_create} to describe the changes you need to do.
+
+\begin{tcolorbox}[height=4in]
+
+\end{tcolorbox}
+
+
+\pagebreak
+{\bf Problem 1D (2 points):}
+\\
+Now that you have added support for the new symbol data structure and symbol creation, describe in
+words the steps or tasks to perform in the new semantic action. You can ignore the declaration
+of scalar (regular) variables.
+%Recall that it should allow
+%the declaration of scalars and of 1-dimensional arrays
+
+\begin{lstlisting}
+declaration: datatype array_size T_ID 
+  { 
+
+  }
+  ;
+\end{lstlisting}
+
+\begin{tcolorbox}[height=4in]
+
+\end{tcolorbox}
+
+
+{\bf Problem 1E (2 points):}
+\\
+Given the grammar definition, would it be possible to declare an array in the following way?
+
+\begin{lstlisting}
+int n myarray;
+\end{lstlisting}
+
+
+Briefly justify your answer.
+
+\begin{tcolorbox}[height=2in]
+
+\end{tcolorbox}

@@ -1,0 +1,143 @@
+
+
+
+\paragraph{Problem 2: Reading from an array cell (10 points)}
+
+
+Refer to the grammar.y file of assignment \#3, lines 199--206 and lines 239-244,
+which define how a value stored at a variable is retrieved:
+
+\vspace{2em}
+
+\begin{lstlisting}
+a_fact : varref 
+      {
+        symbol_t * res;
+        assert ($1 && "Did not find variable");
+        res = make_temp (symtab, $1->datatype);
+        itab_instruction_add (itab, OP_LOAD, res->addr, $1->datatype, $1->addr);
+        $$ = res;
+      }
+\end{lstlisting}
+
+\vspace{2em}
+
+
+\begin{lstlisting}
+varref : T_ID 
+    {
+      symbol_t * sym = symbol_find (symtab, $1);
+      assert (sym && "Ooops: Did not find variable!");
+      $$ = sym;
+    }
+\end{lstlisting}
+
+\vspace{2em}
+
+
+To be able to read from 1-dimensional array cells, we modify the non-terminal \texttt{varref}
+in the following way:
+
+\vspace{2em}
+
+
+\begin{lstlisting}
+varref : T_ID index
+    {
+      symbol_t * sym = symbol_find (symtab, $1);
+      assert (sym && "Ooops: Did not find variable!");
+      /* You will add more code here */
+      $$ = sym;
+    }
+index : '[' a_expr ']' { $$ = $2; }
+    |    { $$ = NULL; }
+    ;
+\end{lstlisting}
+
+\vspace{2em}
+
+The above rules define a non-terminal \texttt{index}, which has two
+rules associated to it. The first rule stores the symbol of the intermediate
+variable that stores the index being accessed. The second rule is recognized
+by the parser when no index expression is found. In that case, the null pointer
+is stored in the parser's stack.
+
+You should notice that in the original grammar, the loading of a variable's value
+was performed on one of the rules of the non-terminal \texttt{a\_fact} via the
+\texttt{OP\_LOAD} intermediate operation. The objective now is to move the
+work being performed in \texttt{a\_fact}'s semantic action to the non-terminal \texttt{varref}.
+
+
+Refer to files icode.hh and icode.cc of programming assignment \#3, in particular, the
+\texttt{run ()} function and the \texttt{OP\_LOAD} intermediate operation.
+You are asked to extend the intermediate code generation process to support loading
+the value of a single array cell into a temporary variable. To do so, we will
+add a new intermediate operation named {\bf \texttt{OP\_LOAD\_ARRAY\_CELL}}.
+The following parts of this problem will guide you through the steps of reading
+values of specific array cells into a temporary variable.
+
+\pagebreak
+
+{\bf Problem 2A (3 points):}
+\\
+Decide whether you need or not to change the definition of the 
+\texttt{simple\_icode} data structure (See icode.hh).
+If you decide to modify it, describe how. List the new fields you are adding,
+  together with their datatype and describe how you intend to use it/them.
+If you decide to not modify the data structure say so, but your answer will have to 
+be consistent with the subsequent parts of this problem.
+
+\begin{tcolorbox}[height=3in]
+
+\end{tcolorbox}
+
+\vspace{2em}
+
+{\bf Problem 2B (4 points):}
+\\
+Briefly describe how will you implement 
+the {\bf \texttt{OP\_LOAD\_ARRAY\_CELL}} intermediate code operation 
+in the \texttt{run ()} function of icode.cc.
+Describe the semantics of each of the fields of the \texttt{simple\_icode} field
+for the new operation {\bf \texttt{OP\_LOAD\_ARRAY\_CELL}}.
+Mention what a field represents, e.g. a variable, an address in memory, the source of the
+load, or the target of the load. 
+
+\begin{tcolorbox}[height=3in]
+
+\end{tcolorbox}
+
+\pagebreak
+
+{\bf Problem 2C (3 points):}
+\\
+Now that you have implemented the new intermediate operation, complete the semantic
+action of the new \texttt{varref} rule (``You will add more code here'') by
+calling 
+the new operation {\bf \texttt{OP\_LOAD\_ARRAY\_CELL}}
+:
+
+\begin{lstlisting}
+varref : T_ID index
+    {
+      symbol_t * sym = symbol_find (symtab, $1);
+      assert (sym && "Ooops: Did not find variable!");
+      /* You will add more code here */
+      $$ = sym;
+    }
+\end{lstlisting}
+
+Recall that the new rule should behave as follows:
+\begin{itemize}
+\item If the index actually appears, then some specific entry of the array 
+must be read and stored in a temporary variable.
+\item If no index is found, then the rule above should behave as a regular 
+\texttt{OP\_LOAD} operation (e.g. \texttt{\_T10 = a}).
+\end{itemize}
+
+You can write your answer in words or in pseudocode, whatever is easier.
+
+\begin{tcolorbox}[height=5in]
+
+\end{tcolorbox}
+

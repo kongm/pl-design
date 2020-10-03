@@ -1,0 +1,169 @@
+\documentclass{article}
+
+\usepackage{afterpage}
+\usepackage{booktabs} % For formal tables
+\usepackage{setspace}
+\usepackage[multiple]{footmisc}
+\usepackage{url}
+\usepackage{amsmath,amssymb}
+\usepackage{alltt}
+%\usepackage{lstlisting}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{graphics}
+\usepackage{bbold}
+\usepackage{empheq}
+\usepackage{tcolorbox}
+\usepackage[left=1in,right=1in,top=1.2in,bottom=1.2in,%
+            footskip=.5in]{geometry}
+%\usepackage[table]{xcolor}
+\usepackage{colortbl,hhline}
+%\usepackage{pgf}
+%\usepackage{pgfplotstable}
+\usepackage{multirow}
+%\definecolor{lightgreen}{HTML}{90EE90}
+
+\usepackage{amsmath,amsfonts,amsbsy}
+\usepackage{fancyvrb,keyval,ifthen}
+\usepackage{graphicx}
+
+\usepackage{booktabs}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\footnotesize, frame=single}
+
+\usepackage{paralist}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\usepackage{titlesec}
+\usepackage{balance}
+\usepackage{array}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%% %\makeatletter
+%% %\renewcommand{\ALG@beginalgorithmic}{\footnotesize}
+%% %\makeatother
+%% \SetAlFnt{\footnotesize}
+
+%% \usepackage{fancyhdr}
+
+
+\setlength{\oddsidemargin}{0pt}
+
+\title{CS-3323 Principles of Programming Languages -- Final Exam}
+
+\begin{document}
+
+\date{May 1st -- May 6th, 2020}
+
+\maketitle
+{\bf\large
+Name: \underline{\mbox{\hspace{4cm}}} 
+}
+\vspace{2em}
+
+{\bf\large
+ID\# \underline{\mbox{\hspace{4cm}}} \hfill
+Score: \underline{\mbox{\hspace{4cm}}}
+}
+
+\vspace{4em}
+
+\noindent
+{\bf Instructions (READ CAREFULLY):}
+
+\begin{itemize}
+
+\item
+This exam is worth a total of 30 points. 
+
+\item 
+An extra credit question worth 5 points is also included. 
+
+\item You have until May 6th, 6:30pm to upload your solution.
+
+\item You can use books, slides, handouts, and any sort of notes.
+
+\item You can work in groups of up to 3 students, that is, yourself and two more.
+
+\item {\bf All students must upload the same solution by the deadline, both in Gradescope and in Canvas (Final Exam directory at the root of the file space)}.
+
+\item Each student must upload a single PDF file with all the answers. One possible way is printing
+a copy of the exam, filling it (either by hand or electronically), and then scanning it. If you don't
+have access to a scanner, you can take a picture of each page and then transfer the photos to a computer.
+Regardless of the source device (scanner or camera/phone), consolidate all solutions and pages in a single MS WORD file (or similar word editor)
+and export it to a PDF format.
+
+\item The estimated time to solve this exam is 4 hours. However, preparing the PDF file with the solutions will likely take time. Please consider the
+overhead of scanning/etc in order to submit your exam solutions by the deadline.
+
+\item If you have any question or if something is unclear, email me. 
+
+\item If your question is deemed as a way of luring me to give you a solution to the exam problems, you will be outright ignored.
+
+
+\end{itemize}
+
+\vspace{2em}
+
+Before proceeding, disclose the students of your group. List their names and student ID (9-digit number):
+
+\begin{tcolorbox}[height=1.5in]
+
+\end{tcolorbox}
+
+\pagebreak
+
+Discussions with peer classmates is encouraged, but your solution can only be
+identical to that of the members in your group.  Disclose below the classmates
+outside your group (name and ID) with whom you have exchanged opinions,
+arguments and/or rationale of solutions for this exam:
+
+\begin{tcolorbox}[height=3in]
+
+\end{tcolorbox}
+
+
+\vspace{1em}
+
+{\bf Context:}
+
+\begin{itemize}
+
+\item
+In programming assignments 3--4 you developed a simple compiler with support for
+integer and floating point arithmetic, and basic control-flow constructs.
+However, the language and compiler did not support any sort of array data type.
+
+\item
+The following exam questions will guide you through the process of adding support
+for 1-dimensional integer arrays at both the language level and at the compiler
+level.
+
+\item
+You can refer to the file grammar.y and all other files of the 3rd and 4th programming assignments for
+more precise implementation details. You can find all the files in Canvas.
+
+\item
+You are also free to modify the files in order to test that your solution is correct or makes
+sense. However, that is not a requirement for getting full credit in the exam.
+
+\end{itemize}
+
+
+\pagebreak
+\input{problem1}
+
+\pagebreak
+\input{problem2}
+
+
+\pagebreak
+\input{problem3}
+
+\pagebreak
+\input{problem-extra}
+
+\pagebreak
+
+
+\end{document}

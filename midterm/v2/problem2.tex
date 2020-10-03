@@ -1,0 +1,302 @@
+
+\noindent
+{\bf Problem 2 (10pts)}\\
+
+Consider the following grammar, which allows to recognize array references:
+\\
+
+\begin{enumerate}
+\item
+ varref $\rightarrow$ T\_ID dimlist 
+\item
+ dimlist $\rightarrow$ dimlist '[' fact ']' 
+\item
+ dimlist $\rightarrow         \epsilon$
+\item
+ fact $\rightarrow$ varref 
+\item
+ fact $\rightarrow$ T\_NUM 
+\item
+fact  $\rightarrow$ '-' fact 
+\end{enumerate}
+
+
+\vspace{1cm}
+
+\noindent
+(2pts) Assuming a right-most derivation, write all the sentential forms for the string: T\_ID [ T\_NUM ] [ - T\_ID ]
+
+\vspace{3in}
+
+\noindent
+(3pts) For the same string, and assuming again a right-most derivation, draw the corresponding parse tree:
+
+\vspace{4in}
+
+
+
+\pagebreak
+\noindent
+(5pts) For the same string and assumptions, use the below LR parsing table to accept or reject it.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+\begin{footnotesize}
+\begin{minipage}[c]{0.31\linewidth}
+\begin{tabular}{|l|}
+\hline
+State 0\\
+0 \$accept: . varref \$end\\
+\\
+T\_ID  shift, and go to state 1\\
+\\
+varref  go to state 2\\
+\\
+\hline
+State 1\\
+1 varref: T\_ID . dimlist\\
+\\
+\$default  reduce using rule 3 (dimlist)\\
+\\
+dimlist  go to state 3\\
+\\
+\hline
+State 2\\
+0 \$accept: varref . \$end\\
+\\
+\$end  shift, and go to state 4\\
+\\
+\hline
+State 3\\
+1 varref: T\_ID dimlist .\\
+2 dimlist: dimlist . '[' fact ']'\\
+\\
+'['  shift, and go to state 5\\
+\\
+\$default  reduce using rule 1 (varref)\\
+\hline
+\end{tabular}
+
+\end{minipage}%
+\begin{minipage}[c]{0.31\linewidth}
+\begin{tabular}{|l|}
+\hline
+State 4\\
+\\
+    0 \$accept: varref \$end .\\
+\\
+    \$default  accept\\
+\hline
+State 5\\
+    2 dimlist: dimlist '[' . fact ']'\\
+\\
+    T\_ID   shift, and go to state 1\\
+    T\_NUM  shift, and go to state 6\\
+    '-'    shift, and go to state 7\\
+\\
+    varref  go to state 8\\
+    fact    go to state 9\\
+\hline
+State 6
+\\
+    5 fact: T\_NUM .\\
+\\
+    \$default  reduce using rule 5 (fact)\\
+\hline
+\end{tabular}
+
+
+\end{minipage}%
+\begin{minipage}[c]{0.31\linewidth}
+\begin{tabular}{|l|}
+\hline
+State 7\\
+    6 fact: '-' . fact\\
+\\
+    T\_ID   shift, and go to state 1\\
+    T\_NUM  shift, and go to state 6\\
+    '-'    shift, and go to state 7\\
+\\
+    varref  go to state 8\\
+    fact    go to state 10\\
+\hline
+State 8\\
+\\
+4 fact: varref .\\
+\\
+\$default  reduce using rule 4 (fact)\\
+\hline
+State 9\\
+\\
+    2 dimlist: dimlist '[' fact . ']'\\
+\\
+    ']'  shift, and go to state 11\\
+\hline
+State 10\\
+    6 fact: '-' fact .\\
+\\
+    \$default  reduce using rule 6 (fact)\\
+\hline
+State 11\\
+\\
+    2 dimlist: dimlist '[' fact ']' .\\
+\\
+\$default  reduce using rule 2 (dimlist)\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{footnotesize}
+\end{minipage}
+
+\begin{tabular}{|p{5cm}|p{8cm}|p{2cm}|}
+\hline
+{\bf Input String} & {\bf Stack Contents} & {\bf Action Taken} \\
+\hline
+\$ T\_ID [ - T\_NUM ] [ T\_ID ] & \$ (0)   &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+\end{tabular}
+
+\pagebreak
+
+Additional space for Problem 2.
+
+
+\begin{tabular}{|p{5cm}|p{8cm}|p{2cm}|}
+\hline
+{\bf Input String} & {\bf Stack Contents} & {\bf Action Taken} \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+   &    &  \\
+\hline
+\end{tabular}
+
+\vspace{1cm}
+

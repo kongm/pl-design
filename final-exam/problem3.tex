@@ -1,0 +1,81 @@
+
+
+\paragraph{Problem 3: Writing to an array cell (10 points)}
+
+As next step, we modify the assignment rule of grammar.y from the below form:
+
+\vspace{2em}
+
+\begin{lstlisting}
+
+assignment : varref T_ASSIGN a_expr 
+      {
+        itab_instruction_add (itab, OP_STORE, $1->addr, $1->datatype, $3->addr);
+        $$ = $1;
+      }
+
+\end{lstlisting}
+
+\vspace{1em}
+
+to its new form:
+
+\vspace{1em}
+
+\begin{lstlisting}
+assignment : varref '[' a_expr ']' T_ASSIGN a_expr 
+  {
+    /* You will add more code here */ 
+  }
+\end{lstlisting}
+
+\vspace{2em}
+
+{\bf Problem 3A (3 points)}
+\\
+Briefly argue why we had to change the assignment rule in our grammar.
+(HINT: the reason has to do with certain modifications to the non-terminal \texttt{varref}).
+
+\begin{tcolorbox}[height=4in]
+
+\end{tcolorbox}
+
+
+\pagebreak
+{\bf Problem 3B (4 points)}
+\\
+Now, briefly describe how would you implement a new 
+{\bf \texttt{OP\_STORE\_ARRAY\_CELL}} intermediate code operation 
+in the \texttt{run ()} function of icode.cc.
+This operation is somewhat similar to \texttt{OP\_STORE} (See lines 144-150 in icode.cc), 
+but it must store 
+a single value in a particular array cell.
+You can inspire yourself from your own answer of Problem 2B. Your
+answer to this question must also be consistent with your answer in Problem 2A.
+
+\begin{tcolorbox}[height=6in]
+
+\end{tcolorbox}
+
+\pagebreak
+
+{\bf Problem 3C (3 points)}
+\\
+Finally, complete the semantic actions of the new assignment rule  below:
+
+\begin{lstlisting}
+assignment : varref '[' a_expr ']' T_ASSIGN a_expr 
+  {
+    /* You will add more code here */ 
+  }
+\end{lstlisting}
+
+You must use the new intermediate code operation
+{\bf \texttt{OP\_STORE\_ARRAY\_CELL}} in the above semantic action. You don't need to worry
+about how are now regular assignments performed (e.g. \texttt{a := 10}).
+You can write your answer in words or in pseudocode, whatever is easier.
+
+\begin{tcolorbox}[height=6in]
+
+\end{tcolorbox}
+

@@ -1,0 +1,62 @@
+
+\noindent
+{\bf Problem 3 (5pts)}\\
+
+Design an LL grammar that is capable of recognizing C++-style declarations of containers. The containers that your grammar
+{\bf must} support are: {\bf vector}, {\bf map}, {\bf set}, and  {\bf pair}. The basic data-types to consider are: {\bf int}, {\bf float}, {\bf string}.
+
+\noindent
+(1pt) List {\bf all} the tokens you will use in your grammar. You can use the examples in the 3rd, 4th and 5th part of this problem to identify the tokens.
+
+\vspace{2.5in}
+
+\noindent
+(1pt) Define the rules for two non-terminals, {\em datatype} and {\em container\_name}. These non-terminals will produce the majority of
+tokens defined above, but will not be the only ones.
+
+
+\vspace{2.5in}
+
+\noindent
+(1pt) Create all the remaining rules for the grammar. You must use the above non-terminals. 
+You should define a non-terminal {\em container} that permits to derive C++ declarations of template strings.
+Your grammar must meet all the requirements of an LL grammar. If necessary, you can use additional non-terminals, but please keep it to the minimum.
+
+The following is an incomplete list of strings that should be accepted by your grammar:
+\begin{itemize}
+\item $vector<int>~~ grades $
+\item $vector<vector<int>>~~ matrix$
+\item $set<int>~~ numbers$
+\item $map<set<string>,pair<float,float>>~~ points$
+\end{itemize}
+
+
+
+\vspace{3in}
+
+\noindent
+(1pt) For the grammar you proposed in the previous step, show all the sentential forms for the string: $vector<set<int> > mytable$
+
+
+
+\vspace{3in}
+
+\noindent
+%(1pt) Enhance your proposed grammar with a rule (or rules) to produce iterators. You must use the non-terminal {\em iterator}. Consider that not all the types of
+%containers can use iterators. For example, {\bf pair} cannot be used with iterators. Also consider that one of the {\em iterator} rules should
+%be nullable.
+
+(1pt) Enhance your proposed grammar with a rule (or rules) to produce pointers to containers. You must use the * (STAR) token operator. The grammar should
+allow to define single- (e.g. int *) and multi-level pointers (e.g. int ***).
+
+Examples of acceptable strings are:
+
+\begin{itemize}
+\item $vector<int> * ~~ii$
+\item $vector<int> *** ~~ii$
+\item $set<string> *~~ aa$
+\item $set<string*> *~~ aa$
+\item $map<int*,int>~~xy$
+\end{itemize}
+
+\vspace{2in}
