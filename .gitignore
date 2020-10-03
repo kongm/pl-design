@@ -1,3 +1,5 @@
 simple.exe
 a.out
 *.exe
+*.log
+*.aux
