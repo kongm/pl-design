@@ -5,3 +5,4 @@ a.out
 *.aux
 grammar.output
 simple.output
+cs*-a?.out
