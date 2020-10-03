@@ -24,4 +24,4 @@ grammar: $(GRAMMAR).y
 	$(BISON) $(GRAMMAR).y -o $(PROG).c
 
 clean: 
-	rm *.exe lex.yy.c $(PROG).? *.o $(PROG).output
+	rm *.exe lex.yy.c $(PROG).? *.o $(PROG).output grammar.output
