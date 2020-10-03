@@ -1,9 +1,9 @@
-\documentclass[letter,10pt]{article}
+\documentclass[letter,11pt]{article}
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 %\usepackage{url}
 \usepackage{hyperref}
 
-\title{CS 3323 - Principles of Programming Languages\\ Assignment 1}
+\title{CS 3323 - Principles of Programming Languages\\Fall 2020 - Assignment 1}
 \date{}
 
 
@@ -14,26 +14,33 @@
 Download the files pl-scanner.yy, driver.c, tokens.h and Makefile from the assignment directory space. Then, perform the necessary modifications
 to the rule's file to recognize the below strings and tokens. The token codes can be found in the tokens.h header file.
 
-The assignment is due on February 10th, 2020, 11:59pm. Files must be uploaded by then. Late policy deduction applies.
+The assignment is due on September 25th, 2020, 11:59pm CT. Files must be uploaded by then. Late policy deduction applies.
+
+You can work in groups of up to 3 students. Groups remain the same for the whole semester. {\bf All students must upload the corresponding files.}
+
+{\bf Group members: At the top of your submitted flex file (the one with extension .yy), list the full names and student IDs (the 9 digit numbers)
+of your group members. List them above the ``\#include "tokens.h"'',  but under the line ``\%\{''.}
 
 \begin{enumerate}
 
-\item (1pt) Add the necessary rules to recognize the arithmetic operators: $+,-,*,/, <=, >=, ==, !=, <, >$. See the file tokens.h 
-to determine the constants to be used.
+\item (1.5pt) Add the necessary rules to recognize the arithmetic operators: $+,-,*,/, <=, >=, ==, !=, <, >$. See the file tokens.h 
+to determine the constants to be used (they start with the prefix 'OP\_').
 
 \item (2pt) Modify the rule returning the T\_ID token to recognize all identifiers matching the following:
 
   \begin{itemize}
-    \item identifiers can start with an underscore ('\_') or a letter, both lower or uppercase
-    \item all identifiers must have a minimum length of 2 characters
-    \item all identifiers must have at least one letter
-    \item identifiers can consist of letters, the underscore character or digits
+    \item identifiers can start with an underscore ('\_') or a letter; letters can only be lowercase.
+    \item all identifiers must have a minimum length of 3 characters; the potential '\_' counts as 1 character of the minimum of 3.
+    %\item all identifiers must have at least one letter
+    %\item identifiers can consist of letters, the underscore character or digits
+    \item identifiers can also consist of one or more digits, but cannot start with them.
   \end{itemize}
 
-  Examples of valid identifiers are: it, ii, a1, \_a, b\_, b1, \_counter\_, \_a\_b\_c\_2\_, \_\_a3.
-  Examples of invalid identifiers are: \_\_, \_2, a, 2\_.
+  Examples of valid identifiers are (commas used separate identifiers): iter, iii, a1i, \_axe, b\_p, b20, \_counter\_, \_a\_b\_c\_2\_, \_\_a3
 
-\item (1pt) Create a new rule to recognize floating point numbers. The rule should return the token T\_FLOAT:
+  Examples of invalid identifiers are (commas used separate identifiers): \_\_, \_2, at, 2\_, 12b\_5
+
+\item (2.5pt) Create a new rule to recognize floating point numbers. The rule should return the token L\_FLOAT:
 
   \begin{itemize}
     \item Can start with a digit, the '+' or a '-'
@@ -42,9 +49,11 @@ to determine the constants to be used.
   \end{itemize}
 
   Examples of acceptable floating point numbers are: "10.0", "+1.5", "-10.50000", "0.9". 
-  Examples of string that should be rejected are: "0.", ".01" 
 
-\item (1pt) Create a rule to recognize the following keywords: integer, float, foreach, begin, end, repeat, until, while, declare, if, then.
+  Examples of strings that should be rejected are: "0.", ".01" 
+
+\item (1.5pt) Create a rule to recognize the following keywords: integer, float, foreach, begin, end, repeat, until, while, declare, if, then, print.
+  The tokens corresponding to the keywords are those with the prefix 'K\_' in the tokens.h header file.
 
 \end{enumerate}
 
@@ -69,6 +78,6 @@ More resources can be found by searching for the key terms: C scanner generator.
 
 Do not change the driver file nor the tokens.h file since the actual integer values will be used for grading. Do not print anything to the output.
 
-Every student should {\bf upload a single file named: ABCDEFGH.yy}, where ABCDEFGH is the 8-digit code identifying the student (not the 4+4).
+Every student should {\bf upload a single file named: ABCDEFGHI.yy}, where ABCDEFGHI is the 9-digit code identifying the student (not the 4+4).
 
 \end{document}

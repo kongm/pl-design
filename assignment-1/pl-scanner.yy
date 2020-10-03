@@ -1,4 +1,5 @@
 %{ 
+//name, ID; 
 
 #include "tokens.h"
 # undef yywrap
@@ -42,7 +43,7 @@ ALPHA [a-zA-Z]
                   }
 
 "="							  { 
-										return '='; 
+										return OP_ASSIGN; 
                   }
 
 "main"					{ 

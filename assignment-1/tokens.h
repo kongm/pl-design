@@ -25,7 +25,8 @@
 #define OP_LEQ 227
 #define OP_GEQ 228
 #define OP_EQ  229
-#define OP_INEQ 230
+// OP_DIFF is !=
+#define OP_DIFF 230
 
 #define CAR_A 400
 #define CAR_B 401

@@ -1,0 +1,95 @@
+The following graph consists of 3 nodes (q0, q1 and q2), and 4 edges, each labeled with either the symbol 'a' or 'b'.
+
+Does the graph represent a DFA or an NFA?
+
+NOTE: all edges are directed, i.e. they go in a single direction (the arrowhead). 
+
+
+*****************************************************************************************************
+
+The following graph consists of 4 nodes (q0, q1, q2 and q3), and 6 edges, each labeled with either the symbol 'a' , 'b', 'c' or the empty string (epsilon).
+
+Does the graph represent a DFA or an NFA?
+
+NOTE: all edges are directed, i.e. they go in the direction defined by the arrowhead.
+
+
+*****************************************************************************************************
+
+
+From the below options, select those that are true.
+Group of answer choices
+A DFA can have multiple transitions on the same symbol from any single state
+A DFA does not have any empty string transitions
+A DFA can have any number of empty string transitions
+A DFA cannot have two or more edges labeled with the same symbol, leaving the same state
+
+*****************************************************************************************************
+
+Select the options that make the below graph an NFA:
+
+graph01.png
+Group of answer choices
+Two edges labeled with 'a' leaving q0
+State q2 not having any outgoing labeled with 'a'
+Lack of empty string transitions
+
+*****************************************************************************************************
+
+From the regular expressions below, select the two which are equivalent to the following DFA:
+
+graph03.png
+
+NOTE: don't confuse regular expressions that accept strings of arbitrary length with regular expressions that only accept some strings of fixed length.
+Group of answer choices
+a ( b a ) *
+a b a
+a ( a b ) *
+a | ( a b ) * a
+
+*****************************************************************************************************
+
+
+
+From the 3 NFA/DFA below, select the one which is equivalent to the regular expression: a * b
+
+graph04.png
+Group of answer choices
+I
+II
+None of the above (NA)
+III
+
+
+
+*****************************************************************************************************
+
+
+
+Consider the following NFA which consists of 3 states (q0, q1 and q2) and 4 transitions over the symbols 'a' and 'b'.
+
+graph05.png
+
+For each of the delta (transition) functions on the left column, select the correct set of states from the right column.
+Group of answer choices
+delta(q0, 'a')
+delta(q2, 'b')
+delta(q1, 'a')
+
+*****************************************************************************************************
+
+
+
+Consider the following NFA which consists of 3 states (q0, q1 and q2) and 4 transitions over the symbols 'a' and 'b'.
+
+graph05.png
+
+From the options below, select the one representing the set of states equivalent to:
+
+     delta ( {q1, q2}, 'b')
+Group of answer choices
+{q0, q1}
+{q1, q2}
+{ } = empty
+{q0, q2}
+
